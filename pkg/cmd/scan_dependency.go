@@ -1,7 +1,6 @@
 package cmd
 
 import(
-	"github.com/jenkins-x/jx/pkg/gits"
 	"github.com/spf13/cobra"
 	batchv1 "k8s.io/api/batch/v1"
 	v1 "k8s.io/api/core/v1"
