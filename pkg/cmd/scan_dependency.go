@@ -1,13 +1,13 @@
 package cmd
 
-import
+import(
 	"github.com/jenkins-x/jx/pkg/gits"
 	"github.com/spf13/cobra"
 	batchv1 "k8s.io/api/batch/v1"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
 	"github.com/google/uuid"
+	"github.com/jenkins-x/jx/pkg/cmd/opts"
 )
 
 const (
@@ -125,6 +125,6 @@ func (o *ScanDependencyOptions) dependencyCheckContainer() *v1.Container {
 		Image:           o.dependencyCheckImage(),
 		ImagePullPolicy: v1.PullAlways,
 		Command:         []string{"./bin/dependency-check.sh"},
-		Args:            []string{"--project depscan", "--out .",fmt.Fprintf("--scan %s", o.Git().Name),
+		Args:            []string{"--project depscan", "--out .",fmt.Fprintf("--scan %s", o.Git().Name)},
 	}
 }
