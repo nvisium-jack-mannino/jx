@@ -37,6 +37,8 @@ func NewCmdScan(commonOpts *opts.CommonOptions) *cobra.Command {
 	}
 
 	cmd.AddCommand(NewCmdScanCluster(commonOpts))
+	cmd.AddCommand(NewCmdScanRbac(commonOpts))
+	cmd.AddCommand(NewCmdScanDependencyCheck(commonOpts))
 
 	return cmd
 }
