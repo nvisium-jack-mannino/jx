@@ -59,8 +59,12 @@ func (o *ScanDependencyOptions) Run() error {
 	if err != nil {
 		return errors.Wrap(err, "creating kube client")
 	}
+	ns, err := createDependendencyCheckNamespace()
+	if err != nil {
+		return err
+	}
 	container := o.dependencyCheckContainer()
-	job := o.createScanJob(dependencyCheckJobName, ns, container)
+	job := o.createDependencyCheckScanJob(dependencyCheckJobName, ns, container)
 	job, err = kubeClient.BatchV1().Jobs(ns).Create(job)
 	if err != nil {
 		return err
@@ -81,7 +85,7 @@ func createDepedendencyCheckNamespace()(string, err) {
 	return ns, nil
 }
 
-func createDependencyScanJob(name string, namespace string, container *v1.Container) *batchv1.Job {
+func createDependencyCheckScanJob(name string, namespace string, container *v1.Container) *batchv1.Job {
 	podTmpl := v1.PodTemplateSpec{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      name,
